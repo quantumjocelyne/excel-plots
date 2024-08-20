@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Excel Plots</title>
+    <link rel="stylesheet"  type="text/css" href="/static/style.css">
+
+</head>
+<body>
+    <h1>Upload Excel Files and get your Plots</h1>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <div class="file-container">
+            <label for="file" class="file-label">Click here to upload Excel File(s)</label>
+            <input type="file" id="file" name="files" multiple onchange="updateFileLabel(this)">
+        </div>
+        <span id="file-info">No file chosen</span>
+
+        <br><br>
+
+        <label for="plot_option">Plot Option:</label>
+        <select name="plot_option">
+            <option value="combined">Combined (minimum two files)</option>
+            <option value="separate">Separate</option>
+        </select>
+        <span class="tooltip">?
+            <span class="tooltiptext">
+                For a combined plot you must upload at least two files.
+                Choose only Excel Files to avoid empty plots.
+            </span>
+        </span>
+
+        <br><br>
+
+        {% if error_message %}
+        <p style="color: red;">{{ error_message }}</p>
+        {% endif %}
+
+        <br><br>
+
+
+        <label for="dpi">DPI (Image resolution):</label>
+        <input type="number" id = "dpi" name="dpi" value="500">
+
+        <span class="tooltip">?
+            <span class="tooltiptext">
+                For optimal clarity, choose a resolution between 300 and 600 dpi.
+                Lower dpi values might result in blurry/jagged images.
+            </span>
+        </span>
+
+        <br><br>
+
+
+        <label for="temp_range">Temperature Range (°C):</label>
+        <input type="text" name="temp_range" placeholder="e.g. 10,30">
+
+        <br><br>
+
+        <label for="relH_range">Relative Humidity Range (%rF):</label>
+        <input type="text" name="relH_range" placeholder="e.g. 25,70">
+
+        <br><br>
+
+        <label for="timestamp_count">Timestamp Count on x-Axis:</label>
+        <input type="number" id="timestamp_count" name="timestamp_count" value="10">
+            <span class="tooltip">?
+                <span class="tooltiptext">
+                    You can choose the number of timestamps displayed on the x-axis.
+                    A lower number will show fewer timestamps and thus less values.
+                </span>
+        </span>
+        <br><br>
+
+
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        function updateFileLabel(inputElement) {
+            const fileInfoSpan = document.getElementById('file-info');
+            const files = inputElement.files;
+            if (files.length === 0) {
+                fileInfoSpan.textContent = "No file chosen";
+            } else if (files.length === 1) {
+                fileInfoSpan.textContent = "1 file chosen";
+            } else {
+                fileInfoSpan.textContent = `${files.length} files chosen`;
+            }
+        }
+    </script>
+
+</body>
+</html>
+
