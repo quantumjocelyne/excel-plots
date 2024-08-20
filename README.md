@@ -1,5 +1,5 @@
-# excel-files-cleaner
-Excel-Files-Cleaner: A Data Processing and Visualization API
+# Excel clean-up and plot
+Excel-plots: A Data Processing and Visualization API
 
 This repository contains the code for an API specifically designed to clean, sort, and process data extracted from Excel files which are related to a specific source,
 namely data logger devices that capture and log temperature and relative humidity values over time. 
